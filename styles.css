@@ -96,7 +96,7 @@ body {
   gap: 8px;
   margin-bottom: 24px;
 }
-.os-brand-icon { font-size: 1.4rem; color: var(--blue); }
+.os-brand-logo { height: 32px; width: auto; }
 .os-brand-name { font-size: 1.05rem; font-weight: 800; color: var(--text-h); letter-spacing: -.3px; }
 
 .os-heading {
@@ -218,7 +218,6 @@ body {
   align-items: center;
   gap: 9px;
 }
-.brand-icon  { font-size: 1.3rem; color: #60a5fa; }
 .brand-name  { font-size: 1rem; font-weight: 800; color: #f0f9ff; letter-spacing: -.2px; }
 
 .header-right { display: flex; align-items: center; gap: 12px; }
