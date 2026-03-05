@@ -20,14 +20,13 @@ No build step, no framework. Open `index.html` in a browser and it works.
 
 ## Stage tabs
 
-The left sidebar has two clickable stage tabs: **Setup** and **Workflow**. Clicking a tab filters the step list to only show steps for that stage. Progress dots and the progress bar are scoped to the active stage.
+The left sidebar has three clickable stage tabs: **Pre-Setup**, **Setup**, and **Workflow**. Clicking a tab filters the step list to only show steps for that stage. Progress dots and the progress bar are scoped to the active stage.
 
-- **Setup** (steps 1–16) — installing Node, Git, Claude Code, creating a GitHub account, etc.
+- **Pre-Setup** (steps 101–105) — a no-GitHub, no-hosting workflow for building a website with Claude using local files only
+- **Setup** (steps 1–16) — installing Git, Claude Code, creating a GitHub account, etc.
 - **Workflow** (steps 17–25) — the repeating edit-preview-publish cycle used during the workshop
 
-**Note:** "Choose a Hosting Option" is step 17, the first step in the **Workflow** stage (not Setup).
-
-Navigation crosses stage boundaries automatically: pressing Next on the last Setup step advances to the first Workflow step, and pressing Back on the first Workflow step returns to the last Setup step.
+Navigation crosses stage boundaries automatically: Pre-Setup → Setup → Workflow. Pressing Next on the last step of a stage advances to the first step of the next stage, and pressing Back on the first step returns to the last step of the previous stage.
 
 ## State persistence
 
@@ -36,7 +35,7 @@ All state is saved in `localStorage` so a page refresh does not lose progress.
 | Key | Value |
 |---|---|
 | `vibe_os` | `"mac"` or `"windows"` |
-| `vibe_stage` | `"setup"` or `"workflow"` |
+| `vibe_stage` | `"presetup"`, `"setup"`, or `"workflow"` |
 | `progress_mac` / `progress_windows` | JSON array of completed step IDs |
 | `current_step_id_mac` / `current_step_id_win` | Last viewed step ID |
 
@@ -49,7 +48,7 @@ Each entry in `ALL_STEPS` in `app.js` has these fields:
   id: 1,                        // unique integer
   title: 'Full step title',
   shortTitle: 'Sidebar label',
-  stage: 'setup',               // 'setup' | 'workflow'
+  stage: 'presetup',             // 'presetup' | 'setup' | 'workflow'
   os: 'both',                   // 'both' | 'mac' | 'windows'
   windowsOnly: false,
   required: true,

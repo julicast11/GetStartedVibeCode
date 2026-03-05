@@ -24,7 +24,132 @@ const LS_CUR_WIN  = 'current_step_id_win';
    warn        : string | null
    subSections : [{heading, bullets[]}] | null  (extra named sections)
 ════════════════════════════════════════════════════════════════ */
+const STAGE_ORDER = ['presetup', 'setup', 'workflow'];
+
 const ALL_STEPS = [
+
+  /* ══════════════════════════════════════════════════════════════
+     PRE-SETUP — local-only workflow (no GitHub, no hosting)
+  ══════════════════════════════════════════════════════════════ */
+
+  /* ── PS1 ────────────────────────────────────────────────────── */
+  {
+    id: 101,
+    title: 'Create your website with Claude (no code editor needed)',
+    shortTitle: 'Create with Claude',
+    stage: 'presetup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'Make a simple website without GitHub or hosting. This path focuses on local files — no GitHub account required. Free plans can work, but you may hit usage limits depending on your plan.',
+    bullets: [
+      'Open Claude (web or desktop app)',
+      'Describe the website you want',
+      'Ask Claude to output a single <code>index.html</code> file (CSS in <code>&lt;style&gt;</code>, JS in <code>&lt;script&gt;</code>)'
+    ],
+    osSpecific: null, subSections: null,
+    command: null, hasCopyBtn: false, links: [],
+    tip: 'Sample prompt: "Create a single-file landing page in plain HTML/CSS/JS. Put CSS in a &lt;style&gt; tag and JS in a &lt;script&gt; tag."',
+    warn: null
+  },
+
+  /* ── PS2 ────────────────────────────────────────────────────── */
+  {
+    id: 102,
+    title: 'Download index.html',
+    shortTitle: 'Download index.html',
+    stage: 'presetup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'Save Claude\'s output as a file on your computer.',
+    bullets: [
+      'Copy Claude\'s output into a file named <code>index.html</code>',
+      'Save it into a new folder (example: <code>MyWebsite/</code>)',
+      'Keep everything together in that folder'
+    ],
+    osSpecific: null, subSections: null,
+    command: null, hasCopyBtn: false, links: [],
+    tip: null, warn: null
+  },
+
+  /* ── PS3 ────────────────────────────────────────────────────── */
+  {
+    id: 103,
+    title: 'Open the website locally',
+    shortTitle: 'Open locally',
+    stage: 'presetup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'View your website in a browser — no server needed.',
+    bullets: [
+      'Double-click <code>index.html</code> to open it in your browser',
+      'Refresh the browser to see changes'
+    ],
+    osSpecific: null, subSections: null,
+    command: 'open index.html',
+    hasCopyBtn: true, links: [],
+    tip: 'On Windows, just double-click the file in Explorer, or run <code>start index.html</code> in the terminal.',
+    warn: null
+  },
+
+  /* ── PS4 ────────────────────────────────────────────────────── */
+  {
+    id: 104,
+    title: 'Update your site later (replace the file)',
+    shortTitle: 'Update the file',
+    stage: 'presetup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'When you want to make changes, ask Claude for a new version and swap the file.',
+    bullets: [
+      'When you ask Claude to make changes, it generates a new version of <code>index.html</code>',
+      'Download or save the new version',
+      'Replace the old <code>index.html</code> in your folder'
+    ],
+    osSpecific: null, subSections: null,
+    command: null, hasCopyBtn: false, links: [],
+    tip: null,
+    warn: 'This workflow does not auto-update. You must replace the file each time.'
+  },
+
+  /* ── PS5 ────────────────────────────────────────────────────── */
+  {
+    id: 105,
+    title: 'When you\'re ready, publish it',
+    shortTitle: 'Ready to publish',
+    stage: 'presetup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'Pre-Setup is great for practice. When you want to share your site publicly, continue with the Setup and Workflow stages to use GitHub Pages.',
+    bullets: [
+      'Pre-Setup is great for practice and learning',
+      'To share your site publicly, continue with <strong>Setup + Workflow</strong> (GitHub Pages)',
+      'The next stages walk you through installing Claude Code, Git, and deploying online'
+    ],
+    osSpecific: null, subSections: null,
+    command: null, hasCopyBtn: false, links: [],
+    tip: null, warn: null
+  },
+
+  /* ── PS6 ────────────────────────────────────────────────────── */
+  {
+    id: 106,
+    title: 'Let\'s get started',
+    shortTitle: 'Let\'s get started',
+    stage: 'presetup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'Describe what you want to build and ask Claude to generate a single <code>index.html</code> file. The file must contain all your HTML, CSS inside a <code>&lt;style&gt;</code> tag, and JavaScript inside a <code>&lt;script&gt;</code> tag — everything in one file.',
+    bullets: [
+      'Open Claude (web or desktop app)',
+      'Describe the website or app you want to build',
+      'Ask Claude to put everything in a single <code>index.html</code> file',
+      'The file should include <strong>HTML</strong> for structure, <strong>CSS</strong> inside a <code>&lt;style&gt;</code> tag, and <strong>JS</strong> inside a <code>&lt;script&gt;</code> tag',
+      'Copy the output and save it as <code>index.html</code>'
+    ],
+    osSpecific: null, subSections: null,
+    command: 'Build me a personal landing page with a hero section, an about paragraph, and a contact link. Put everything in a single index.html file with CSS in a <style> tag and JavaScript in a <script> tag.',
+    hasCopyBtn: true, links: [],
+    tip: 'You can change the prompt to describe any website you want. The key requirement is that Claude outputs a single self-contained index.html file.',
+    warn: null
+  },
+
+  /* ══════════════════════════════════════════════════════════════
+     SETUP
+  ══════════════════════════════════════════════════════════════ */
 
   /* ── 1 ─────────────────────────────────────────────────────── */
   {
@@ -672,7 +797,7 @@ const ALL_STEPS = [
    STATE
 ════════════════════════════════════════════════════════════════ */
 let selectedOS    = null;
-let selectedStage = 'setup';
+let selectedStage = 'presetup';
 let filteredSteps = [];   // steps for current OS + stage
 let currentIndex  = 0;
 let completedSet  = new Set();
@@ -756,13 +881,13 @@ function syncOsSwitchBtns() {
 function switchOS(os) {
   if (os === selectedOS) { closeOsPanel(); return; }
   selectedOS    = os;
-  selectedStage = 'setup';
+  selectedStage = 'presetup';
   localStorage.setItem(LS_OS, os);
-  localStorage.setItem(LS_STAGE, 'setup');
+  localStorage.setItem(LS_STAGE, 'presetup');
   loadProgress();
-  // Jump to first incomplete setup step; fall back to step 0
-  const setupSteps = getStageSteps('setup');
-  const firstIncomplete = setupSteps.findIndex(s => !completedSet.has(s.id));
+  // Jump to first incomplete presetup step; fall back to step 0
+  const stageSteps = getStageSteps('presetup');
+  const firstIncomplete = stageSteps.findIndex(s => !completedSet.has(s.id));
   currentIndex = firstIncomplete >= 0 ? firstIncomplete : 0;
   closeOsPanel();
   renderAll();
@@ -780,7 +905,7 @@ function loadProgress() {
   completedSet = raw ? new Set(JSON.parse(raw)) : new Set();
 
   const savedStage = localStorage.getItem(LS_STAGE);
-  selectedStage = (savedStage === 'workflow') ? 'workflow' : 'setup';
+  selectedStage = STAGE_ORDER.includes(savedStage) ? savedStage : 'setup';
 
   filteredSteps = getStageSteps(selectedStage);
   const savedStepId = parseInt(localStorage.getItem(getCurKey()) || '0', 10);
@@ -827,6 +952,7 @@ function selectStage(stage) {
 
 function renderAll() {
   renderStageNav();
+  renderSectionHeader();
   renderSidebar();
   renderDots();
   renderDetail();
@@ -834,33 +960,54 @@ function renderAll() {
   syncOsSwitchBtns();
 }
 
+function renderSectionHeader() {
+  const titles = {
+    presetup: 'Pre-Setup',
+    setup:    'Setup',
+    workflow: 'Workflow'
+  };
+  const subs = {
+    presetup: 'Build a website with Claude using local files — no GitHub or hosting needed.',
+    setup:    'Get Claude Code installed and ready so you can start building at the workshop.',
+    workflow: 'The repeating edit-preview-publish cycle used during the workshop.'
+  };
+  const titleEl = document.querySelector('.section-title');
+  const subEl   = document.querySelector('.section-sub');
+  if (titleEl) titleEl.textContent = titles[selectedStage] || 'Setup';
+  if (subEl)   subEl.textContent   = subs[selectedStage]   || '';
+}
+
 
 /* ════════════════════════════════════════════════════════════════
    STAGE NAV
 ════════════════════════════════════════════════════════════════ */
 function renderStageNav() {
-  const setupItem    = document.getElementById('stageSetup');
-  const setupDot     = document.getElementById('stageDotSetup');
-  const workflowItem = document.getElementById('stageWorkflow');
-  const workflowDot  = document.getElementById('stageDotWorkflow');
+  const items = {
+    presetup: { el: document.getElementById('stagePresetup'), dot: document.getElementById('stageDotPresetup') },
+    setup:    { el: document.getElementById('stageSetup'),    dot: document.getElementById('stageDotSetup') },
+    workflow: { el: document.getElementById('stageWorkflow'), dot: document.getElementById('stageDotWorkflow') }
+  };
 
-  if (!setupItem || !workflowItem) return;
+  const activeIdx = STAGE_ORDER.indexOf(selectedStage);
 
-  if (selectedStage === 'workflow') {
-    setupItem.className     = 'stage-item stage-done stage-tab';
-    setupDot.className      = 'stage-dot stage-dot-done';
-    setupDot.textContent    = '✓';
-    workflowItem.className  = 'stage-item stage-active stage-tab';
-    workflowDot.className   = 'stage-dot stage-dot-active';
-    workflowDot.textContent = '';
-  } else {
-    setupItem.className     = 'stage-item stage-active stage-tab';
-    setupDot.className      = 'stage-dot stage-dot-active';
-    setupDot.textContent    = '';
-    workflowItem.className  = 'stage-item stage-tab';
-    workflowDot.className   = 'stage-dot stage-dot-upcoming';
-    workflowDot.textContent = '';
-  }
+  STAGE_ORDER.forEach((stage, i) => {
+    const { el, dot } = items[stage];
+    if (!el || !dot) return;
+
+    if (i < activeIdx) {
+      el.className       = 'stage-item stage-done stage-tab';
+      dot.className      = 'stage-dot stage-dot-done';
+      dot.textContent    = '\u2713';
+    } else if (i === activeIdx) {
+      el.className       = 'stage-item stage-active stage-tab';
+      dot.className      = 'stage-dot stage-dot-active';
+      dot.textContent    = '';
+    } else {
+      el.className       = 'stage-item stage-tab';
+      dot.className      = 'stage-dot stage-dot-upcoming';
+      dot.textContent    = '';
+    }
+  });
 }
 
 
@@ -1067,10 +1214,10 @@ function toggleOtherOS(btn) {
 function updateNav() {
   const back = document.getElementById('navBack');
   const next = document.getElementById('navNext');
-  // Back disabled only on first step of Setup (first stage)
-  if (back) back.disabled = (currentIndex === 0 && selectedStage === 'setup');
-  // Finish shown only on last step of Workflow (last stage)
-  const isLast = currentIndex === filteredSteps.length - 1 && selectedStage === 'workflow';
+  const isFirstStage = selectedStage === STAGE_ORDER[0];
+  const isLastStage  = selectedStage === STAGE_ORDER[STAGE_ORDER.length - 1];
+  if (back) back.disabled = (currentIndex === 0 && isFirstStage);
+  const isLast = currentIndex === filteredSteps.length - 1 && isLastStage;
   if (next) next.textContent = isLast ? 'Finish ✓' : 'Next →';
 }
 
@@ -1079,13 +1226,17 @@ function prevStep() {
     currentIndex--;
     saveProgress();
     renderAll();
-  } else if (selectedStage === 'workflow') {
-    // Cross back to last step of Setup
-    selectedStage = 'setup';
-    filteredSteps = getStageSteps('setup');
-    currentIndex  = filteredSteps.length - 1;
-    saveProgress();
-    renderAll();
+  } else {
+    // Cross back to previous stage
+    const idx = STAGE_ORDER.indexOf(selectedStage);
+    if (idx > 0) {
+      const prevStage = STAGE_ORDER[idx - 1];
+      selectedStage = prevStage;
+      filteredSteps = getStageSteps(prevStage);
+      currentIndex  = filteredSteps.length - 1;
+      saveProgress();
+      renderAll();
+    }
   }
 }
 
@@ -1094,11 +1245,14 @@ function nextStep() {
     currentIndex++;
     saveProgress();
     renderAll();
-  } else if (selectedStage === 'setup') {
-    // Cross forward into Workflow
-    selectStage('workflow');
   } else {
-    showSuccess();
+    // Cross forward to next stage
+    const idx = STAGE_ORDER.indexOf(selectedStage);
+    if (idx < STAGE_ORDER.length - 1) {
+      selectStage(STAGE_ORDER[idx + 1]);
+    } else {
+      showSuccess();
+    }
   }
 }
 
@@ -1107,10 +1261,13 @@ function skipStep() {
     currentIndex++;
     saveProgress();
     renderAll();
-  } else if (selectedStage === 'setup') {
-    selectStage('workflow');
   } else {
-    showSuccess();
+    const idx = STAGE_ORDER.indexOf(selectedStage);
+    if (idx < STAGE_ORDER.length - 1) {
+      selectStage(STAGE_ORDER[idx + 1]);
+    } else {
+      showSuccess();
+    }
   }
 }
 
@@ -1202,7 +1359,7 @@ function restartWizard() {
   completedSet.clear();
   currentIndex  = 0;
   selectedOS    = null;
-  selectedStage = 'setup';
+  selectedStage = 'presetup';
   filteredSteps = [];
   showScreen('osScreen');
 }

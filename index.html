@@ -83,8 +83,12 @@
             </div>
             <p class="os-switch-hint">Switching OS changes which steps you see. Your progress is saved per OS.</p>
           </div>
-          <div class="stage-item stage-active stage-tab" id="stageSetup" onclick="selectStage('setup')" role="button" tabindex="0">
-            <span class="stage-dot stage-dot-active" id="stageDotSetup"></span>
+          <div class="stage-item stage-active stage-tab" id="stagePresetup" onclick="selectStage('presetup')" role="button" tabindex="0">
+            <span class="stage-dot stage-dot-active" id="stageDotPresetup"></span>
+            <span class="stage-name">Pre-Setup</span>
+          </div>
+          <div class="stage-item stage-tab" id="stageSetup" onclick="selectStage('setup')" role="button" tabindex="0">
+            <span class="stage-dot stage-dot-upcoming" id="stageDotSetup"></span>
             <span class="stage-name">Setup</span>
           </div>
           <div class="stage-item stage-tab" id="stageWorkflow" onclick="selectStage('workflow')" role="button" tabindex="0">
