@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibecoding Setup</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 1 · OS SELECTION
+  ══════════════════════════════════════════════ -->
+  <div id="osScreen" class="screen os-screen">
+    <div class="os-card">
+      <div class="os-brand">
+        <span class="os-brand-icon">✦</span>
+        <span class="os-brand-name">Vibecoding</span>
+      </div>
+      <h1 class="os-heading">Welcome to the<br/>Setup Wizard</h1>
+      <p class="os-sub">Get Claude Code installed and ready for the workshop — step by step.</p>
+
+      <div class="os-question-block">
+        <h2>Which computer are you using?</h2>
+        <p class="autodetect-note" id="autodetectNote"></p>
+      </div>
+
+      <div class="os-choices">
+        <button class="os-btn" id="macBtn" data-os="mac" onclick="selectOS('mac')">
+          <span class="os-btn-label">Mac</span>
+          <span class="os-btn-sub">macOS</span>
+        </button>
+        <button class="os-btn" id="winBtn" data-os="windows" onclick="selectOS('windows')">
+          <span class="os-btn-label">Windows</span>
+          <span class="os-btn-sub">Windows 10 / 11</span>
+        </button>
+      </div>
+
+      <p class="os-footnote">Your OS choice and progress are saved locally — refresh safely.</p>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 2 · WIZARD
+  ══════════════════════════════════════════════ -->
+  <div id="wizardScreen" class="screen wizard-screen">
+
+    <!-- Dark top header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <span class="brand-icon">✦</span>
+        <span class="brand-name">Vibecoding</span>
+      </div>
+      <div class="header-right">
+        <span class="os-pill" id="osPill"></span>
+        <div class="user-chip">
+          <span class="user-avatar">👤</span>
+          <span class="user-label">Workshop</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- App body -->
+    <div class="app-body">
+
+      <!-- ── Left Sidebar ── -->
+      <aside class="app-sidebar" id="appSidebar">
+
+        <!-- Workshop stages -->
+        <p class="sidebar-section-label">STAGES</p>
+        <nav class="stage-nav">
+          <div class="stage-item stage-done stage-tab" id="chooseItem" onclick="toggleOsPanel(event)" role="button" tabindex="0" aria-expanded="false">
+            <span class="stage-dot stage-dot-done">✓</span>
+            <span class="stage-name">Choose</span>
+            <span class="choose-chevron" id="chooseChevron">&#8964;</span>
+          </div>
+          <div class="os-switch-panel" id="osSwitchPanel">
+            <p class="os-switch-title">Switch OS</p>
+            <div class="os-switch-btns">
+              <button class="os-switch-btn" id="osSwitchMac" onclick="switchOS('mac')">Mac</button>
+              <button class="os-switch-btn" id="osSwitchWin" onclick="switchOS('windows')">Windows</button>
+            </div>
+            <p class="os-switch-hint">Switching OS changes which steps you see. Your progress is saved per OS.</p>
+          </div>
+          <div class="stage-item stage-active stage-tab" id="stageSetup" onclick="selectStage('setup')" role="button" tabindex="0">
+            <span class="stage-dot stage-dot-active" id="stageDotSetup"></span>
+            <span class="stage-name">Setup</span>
+          </div>
+          <div class="stage-item stage-tab" id="stageWorkflow" onclick="selectStage('workflow')" role="button" tabindex="0">
+            <span class="stage-dot stage-dot-upcoming" id="stageDotWorkflow"></span>
+            <span class="stage-name">Workflow</span>
+          </div>
+        </nav>
+
+        <!-- Individual step list under Setup -->
+        <p class="sidebar-section-label sidebar-steps-label">STEPS</p>
+        <ul class="step-sub-list" id="stepSubList"></ul>
+
+      </aside>
+
+      <!-- ── Main Content ── -->
+      <main class="app-main" id="appMain">
+
+        <!-- Mobile hamburger -->
+        <button class="mob-menu-btn" id="mobMenuBtn" onclick="toggleSidebar()">
+          <span class="mob-menu-icon">☰</span>
+          <span id="mobStepLabel">Steps</span>
+        </button>
+
+        <!-- Section header -->
+        <div class="section-header">
+          <div class="section-header-row">
+            <h1 class="section-title">Setup</h1>
+            <span class="step-counter" id="stepCounter"></span>
+          </div>
+          <p class="section-sub">Get Claude Code installed and ready so you can start building at the workshop.</p>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-bar-row" id="progressBarRow">
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+          </div>
+          <span class="progress-label" id="progressLabel">0 of 0 completed</span>
+        </div>
+
+        <!-- Progress dots -->
+        <div class="progress-dots" id="progressDots"></div>
+
+        <!-- Step card -->
+        <div class="step-card" id="stepCard">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="step-nav-row">
+          <button class="nav-btn nav-back" id="navBack" onclick="prevStep()">← Back</button>
+          <button class="nav-btn nav-skip" onclick="skipStep()">Skip for now</button>
+          <button class="nav-btn nav-next" id="navNext" onclick="nextStep()">Next →</button>
+        </div>
+
+        <p class="kbd-hint">Use <kbd>←</kbd> <kbd>→</kbd> arrow keys to navigate</p>
+
+        <div class="start-over-row">
+          <button class="start-over-btn" onclick="confirmRestart()">↺ Start Over</button>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- Mobile sidebar overlay -->
+    <div class="sidebar-overlay hidden" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       SCREEN 3 · SUCCESS
+  ══════════════════════════════════════════════ -->
+  <div id="successScreen" class="screen success-screen">
+    <div class="success-card">
+      <div class="success-icon">🎉</div>
+      <h2 class="success-heading">You are all set!</h2>
+      <p class="success-msg">Everything is installed and configured.<br/>You are ready to start vibecoding.</p>
+      <div class="success-os-badge" id="successOsBadge"></div>
+      <button class="btn-continue" onclick="changeOS()">Continue →</button>
+      <button class="btn-restart-sm" onclick="restartWizard()">↺ Start Over</button>
+    </div>
+  </div>
+
+
+  <script src="app.js"></script>
+</body>
+</html>
