@@ -132,13 +132,13 @@ const ALL_STEPS = [
     shortTitle: 'Let\'s get started',
     stage: 'presetup',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Describe what you want to build and ask Claude to generate a single <code>index.html</code> file. The file must contain all your HTML, CSS inside a <code>&lt;style&gt;</code> tag, and JavaScript inside a <code>&lt;script&gt;</code> tag — everything in one file.',
+    explanation: 'Before we dive in, here\'s a quick look at the three technologies that make every website work:<br><br><strong>HTML</strong> — defines the structure and content of a page (headings, paragraphs, buttons).<br><strong>CSS</strong> — controls the styling and layout (colors, spacing, fonts).<br><strong>JavaScript</strong> — adds interactivity and behavior (clicks, navigation, animations).<br><br>In this workshop you\'ll ask Claude to generate a single <code>index.html</code> file that contains all three — HTML for the page, CSS inside a <code>&lt;style&gt;</code> tag, and JavaScript inside a <code>&lt;script&gt;</code> tag. One file is all a browser needs to run your project. No server, no framework, no build step.',
     bullets: [
       'Open Claude (web or desktop app)',
       'Describe the website or app you want to build',
       'Ask Claude to put everything in a single <code>index.html</code> file',
-      'The file should include <strong>HTML</strong> for structure, <strong>CSS</strong> inside a <code>&lt;style&gt;</code> tag, and <strong>JS</strong> inside a <code>&lt;script&gt;</code> tag',
-      'Copy the output and save it as <code>index.html</code>'
+      'Copy the output and save it as <code>index.html</code>',
+      'Open the file in your browser to see it live'
     ],
     osSpecific: null, subSections: null,
     command: 'Build me a personal landing page with a hero section, an about paragraph, and a contact link. Put everything in a single index.html file with CSS in a <style> tag and JavaScript in a <script> tag.',
