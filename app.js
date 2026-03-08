@@ -423,17 +423,54 @@ const ALL_STEPS = [
     shortTitle: 'Install Claude Code',
     stage: 'setup',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Run the official installer script in your terminal to install the Claude Code <span data-tooltip="CLI = Command-Line Interface. A text-based tool you run in a terminal.">CLI</span>.',
-    bullets: [
-      'Open your terminal (from the previous step)',
-      'Copy and run the install command below',
-      'Wait for the installation to complete — this may take a minute',
-      'Open a <strong>new terminal window</strong> after installation'
+    explanation: 'Run the install command in your terminal. It checks what you already have and only installs what is missing — safe to re-run.',
+    bullets: [],
+    osSpecific: {
+      mac: {
+        heading: 'On Mac',
+        bullets: [
+          'Copy the install command below',
+          'Open <strong>Terminal</strong> — press <kbd>⌘ Space</kbd>, type <strong>Terminal</strong>, press <kbd>Enter</kbd>',
+          'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>'
+        ]
+      },
+      windows: {
+        heading: 'On Windows',
+        bullets: [
+          'Copy the install command below',
+          'Open <strong>PowerShell</strong> — press <kbd>Win</kbd>, type <strong>PowerShell</strong>, press <kbd>Enter</kbd>',
+          'Right-click to paste, then press <kbd>Enter</kbd>'
+        ]
+      }
+    },
+    subSections: [
+      {
+        heading: '🍎 What gets installed on Mac',
+        bullets: [
+          '<strong>Homebrew</strong> — Package manager for installing developer tools',
+          '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
+          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal',
+          '<strong>Starter kit</strong> — A <code>.claude</code> configuration folder with best-practice rules, hooks, and settings',
+          '<strong>cc shortcut</strong> — Type <code>cc</code> to start Claude Code in auto-accept mode (no permission prompts)',
+          '<strong>ccr shortcut</strong> — Type <code>ccr</code> to resume your last Claude Code session',
+          '<strong>Terminal in Dock</strong> — Pins Terminal to your Dock for quick access'
+        ]
+      },
+      {
+        heading: '🪟 What gets installed on Windows',
+        bullets: [
+          '<strong>Execution policy</strong> — Allows PowerShell to run developer scripts (current user only)',
+          '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
+          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal',
+          '<strong>Starter kit</strong> — A <code>.claude</code> configuration folder with best-practice rules, hooks, and settings',
+          '<strong>cc shortcut</strong> — Type <code>cc</code> to start Claude Code in auto-accept mode (no permission prompts)',
+          '<strong>ccr shortcut</strong> — Type <code>ccr</code> to resume your last Claude Code session'
+        ]
+      }
     ],
-    osSpecific: null, subSections: null,
     command: 'curl -fsSL https://claude.ai/install.sh | bash',
     hasCopyBtn: true, links: [],
-    tip: 'If you see a permission error, try prepending <code>sudo</code> before the command.',
+    tip: 'Every step checks first — if something is already installed, it is skipped. Safe to re-run.',
     warn: null
   },
 
@@ -661,20 +698,33 @@ const ALL_STEPS = [
   /* ── W3 ─────────────────────────────────────────────────────── */
   {
     id: 20,
-    title: 'Run a local preview server',
-    shortTitle: 'Local preview server',
+    title: 'Preview your website locally',
+    shortTitle: 'Preview locally',
     stage: 'workflow',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'This allows you to view the website in your browser while editing.',
+    explanation: 'View your website in a browser — no server needed. Just open the file directly.',
     bullets: [
-      'Run the command below in your terminal',
-      'Open <strong>http://localhost:8080</strong> in your browser',
-      'Refresh the browser after making changes to see updates',
-      'Stop the server when done with <kbd>Ctrl+C</kbd>'
+      'Double-click <code>index.html</code> in your project folder to open it in your browser',
+      'After making changes, refresh the browser to see updates'
     ],
-    osSpecific: null, subSections: null,
-    command: 'python3 -m http.server 8080',
-    hasCopyBtn: true, links: [],
+    osSpecific: {
+      mac: {
+        heading: 'On Mac',
+        bullets: [
+          'Or run <code>open index.html</code> in Terminal',
+          'Hard refresh: <kbd>Cmd+Shift+R</kbd>'
+        ]
+      },
+      windows: {
+        heading: 'On Windows',
+        bullets: [
+          'Or run <code>start index.html</code> in PowerShell',
+          'Hard refresh: <kbd>Ctrl+Shift+R</kbd>'
+        ]
+      }
+    },
+    subSections: null,
+    command: null, hasCopyBtn: false, links: [],
     tip: null, warn: null
   },
 
