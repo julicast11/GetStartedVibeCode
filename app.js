@@ -425,7 +425,7 @@ const ALL_STEPS = [
     os: 'both', windowsOnly: false, required: false, optional: false,
     explanation: 'Run the install command in your terminal. It checks what you already have and only installs what is missing — safe to re-run.',
     bullets: [],
-    showBothOS: true,
+    showBothOS: false,
     osSpecific: {
       mac: {
         heading: 'On Mac',
