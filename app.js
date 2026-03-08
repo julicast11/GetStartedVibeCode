@@ -425,6 +425,7 @@ const ALL_STEPS = [
     os: 'both', windowsOnly: false, required: false, optional: false,
     explanation: 'Run the install command in your terminal. It checks what you already have and only installs what is missing — safe to re-run.',
     bullets: [],
+    showBothOS: true,
     osSpecific: {
       mac: {
         heading: 'On Mac',
@@ -432,7 +433,8 @@ const ALL_STEPS = [
           'Copy the install command below',
           'Open <strong>Terminal</strong> — press <kbd>⌘ Space</kbd>, type <strong>Terminal</strong>, press <kbd>Enter</kbd>',
           'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>'
-        ]
+        ],
+        command: '( command -v brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ) && { [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"; [ -x /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"; true; } && ( command -v node >/dev/null 2>&1 || brew install node ) && ( command -v claude >/dev/null 2>&1 || npm install -g @anthropic-ai/claude-code ) && mkdir -p "$HOME/Code" && curl -fsSL https://vibecoding.expertly.com/claude-starter-kit.zip -o /tmp/claude-starter-kit.zip && unzip -n /tmp/claude-starter-kit.zip -d "$HOME/Code/" && echo "Done. Try: cc"'
       },
       windows: {
         heading: 'On Windows',
@@ -440,7 +442,8 @@ const ALL_STEPS = [
           'Copy the install command below',
           'Open <strong>PowerShell</strong> — press <kbd>Win</kbd>, type <strong>PowerShell</strong>, press <kbd>Enter</kbd>',
           'Right-click to paste, then press <kbd>Enter</kbd>'
-        ]
+        ],
+        command: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; if (!(Get-Command node -ErrorAction SilentlyContinue)) { winget install OpenJS.NodeJS.LTS -e --accept-source-agreements --accept-package-agreements }; npm install -g @anthropic-ai/claude-code; echo "Done. Try: cc"'
       }
     },
     subSections: [
@@ -468,8 +471,7 @@ const ALL_STEPS = [
         ]
       }
     ],
-    command: 'curl -fsSL https://claude.ai/install.sh | bash',
-    hasCopyBtn: true, links: [],
+    command: null, hasCopyBtn: false, links: [],
     tip: 'Every step checks first — if something is already installed, it is skipped. Safe to re-run.',
     warn: null
   },
@@ -1176,17 +1178,28 @@ function renderDetail() {
         <div class="os-section ${primaryCls}">
           <p class="os-section-heading">${primary.heading}</p>
           <ul>${primary.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+          ${primary.command ? `<div class="cmd-block"><code>${escHtml(primary.command)}</code><button class="copy-btn" onclick="copyCommand(this)">Copy</button></div>` : ''}
         </div>`;
     }
     if (other) {
-      html += `
-        <button class="toggle-other-os" onclick="toggleOtherOS(this)">
-          Show ${otherLabel} instructions ▾
-        </button>
-        <div class="os-section ${otherCls} hidden" id="otherOsBlock">
-          <p class="os-section-heading">${other.heading}</p>
-          <ul>${other.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
-        </div>`;
+      if (step.showBothOS) {
+        html += `
+          <div class="os-section ${otherCls}">
+            <p class="os-section-heading">${other.heading}</p>
+            <ul>${other.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+            ${other.command ? `<div class="cmd-block"><code>${escHtml(other.command)}</code><button class="copy-btn" onclick="copyCommand(this)">Copy</button></div>` : ''}
+          </div>`;
+      } else {
+        html += `
+          <button class="toggle-other-os" onclick="toggleOtherOS(this)">
+            Show ${otherLabel} instructions ▾
+          </button>
+          <div class="os-section ${otherCls} hidden" id="otherOsBlock">
+            <p class="os-section-heading">${other.heading}</p>
+            <ul>${other.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+            ${other.command ? `<div class="cmd-block"><code>${escHtml(other.command)}</code><button class="copy-btn" onclick="copyCommand(this)">Copy</button></div>` : ''}
+          </div>`;
+      }
     }
   }
 
