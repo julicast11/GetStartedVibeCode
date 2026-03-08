@@ -449,6 +449,7 @@ const ALL_STEPS = [
     subSections: [
       {
         heading: '🍎 What gets installed on Mac',
+        os: 'mac',
         bullets: [
           '<strong>Homebrew</strong> — Package manager for installing developer tools',
           '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
@@ -461,6 +462,7 @@ const ALL_STEPS = [
       },
       {
         heading: '🪟 What gets installed on Windows',
+        os: 'windows',
         bullets: [
           '<strong>Execution policy</strong> — Allows PowerShell to run developer scripts (current user only)',
           '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
@@ -1206,6 +1208,7 @@ function renderDetail() {
   /* Named sub-sections (e.g. Membership tiers, Hosting types) */
   if (step.subSections && step.subSections.length > 0) {
     step.subSections.forEach(sec => {
+      if (sec.os && sec.os !== os) return;
       html += `<h4 class="card-sub-heading">${sec.heading}</h4>`;
       html += `<ul class="card-bullets">${sec.bullets.map(b => `<li>${b}</li>`).join('')}</ul>`;
     });
