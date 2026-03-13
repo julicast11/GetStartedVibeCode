@@ -213,14 +213,14 @@ const ALL_STEPS = [
     shortTitle: 'Choose a Membership',
     stage: 'setup',
     os: 'both', windowsOnly: false, required: true, optional: false,
-    explanation: 'Claude Code requires a paid Claude plan. The free plan does not include enough usage or the required tools for building apps consistently.',
+    explanation: 'Claude Code works best with a paid Claude plan. The free plan has limited usage that may not be enough for sustained development.',
     bullets: [],
     osSpecific: null,
     subSections: [
       {
         heading: '⭐ Recommended: Claude Pro (~$20/month)',
         bullets: [
-          'Best option for workshops and individual developers',
+          'Best option for individual developers',
           'Full access to Claude Code and higher usage limits',
           'Approx. $20/month — cancel any time',
           'Go to <strong>claude.ai → Settings → Billing → Upgrade to Pro</strong>'
@@ -239,14 +239,14 @@ const ALL_STEPS = [
         bullets: [
           'The free plan lets you try Claude but is usually not enough for sustained Claude Code use',
           'You may hit rate limits quickly during active development',
-          'Upgrade before the workshop to avoid interruptions'
+          'Upgrade before starting to avoid interruptions'
         ]
       }
     ],
     command: null, hasCopyBtn: false,
     links: [{ text: 'claude.ai/settings ↗', url: 'https://claude.ai/settings' }],
     tip: null,
-    warn: 'You must be on Claude Pro (or Teams) to use Claude Code reliably. Upgrade before continuing.'
+    warn: 'Claude Pro (or Teams) is strongly recommended for reliable Claude Code usage. Upgrade before continuing.'
   },
 
   /* ── 4 ─────────────────────────────────────────────────────── */
@@ -423,7 +423,7 @@ const ALL_STEPS = [
     shortTitle: 'Install Claude Code',
     stage: 'setup',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Run the install command in your terminal. It checks what you already have and only installs what is missing — safe to re-run.',
+    explanation: 'Claude Code requires Node.js (v18+). The commands below install Node.js if needed, then install Claude Code globally.',
     bullets: [],
     showBothOS: false,
     osSpecific: {
@@ -432,18 +432,20 @@ const ALL_STEPS = [
         bullets: [
           'Copy the install command below',
           'Open <strong>Terminal</strong> — press <kbd>⌘ Space</kbd>, type <strong>Terminal</strong>, press <kbd>Enter</kbd>',
-          'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>'
+          'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>',
+          'If you don\'t have Homebrew yet, the command installs it first'
         ],
-        command: '( command -v brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ) && { [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"; [ -x /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"; true; } && ( command -v node >/dev/null 2>&1 || brew install node ) && ( command -v claude >/dev/null 2>&1 || npm install -g @anthropic-ai/claude-code ) && mkdir -p "$HOME/Code" && curl -fsSL https://vibecoding.expertly.com/claude-starter-kit.zip -o /tmp/claude-starter-kit.zip && unzip -n /tmp/claude-starter-kit.zip -d "$HOME/Code/" && echo "Done. Try: cc"'
+        command: '( command -v brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ) && { [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"; [ -x /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"; true; } && ( command -v node >/dev/null 2>&1 || brew install node ) && npm install -g @anthropic-ai/claude-code && echo "Done! Run: claude"'
       },
       windows: {
         heading: 'On Windows',
         bullets: [
           'Copy the install command below',
           'Open <strong>PowerShell</strong> — press <kbd>Win</kbd>, type <strong>PowerShell</strong>, press <kbd>Enter</kbd>',
-          'Right-click to paste, then press <kbd>Enter</kbd>'
+          'Right-click to paste, then press <kbd>Enter</kbd>',
+          'If Node.js is not installed, the command installs it via <strong>winget</strong>'
         ],
-        command: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; if (!(Get-Command node -ErrorAction SilentlyContinue)) { winget install OpenJS.NodeJS.LTS -e --accept-source-agreements --accept-package-agreements }; npm install -g @anthropic-ai/claude-code; echo "Done. Try: cc"'
+        command: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; if (!(Get-Command node -ErrorAction SilentlyContinue)) { winget install OpenJS.NodeJS.LTS -e --accept-source-agreements --accept-package-agreements }; npm install -g @anthropic-ai/claude-code; echo "Done! Run: claude"'
       }
     },
     subSections: [
@@ -451,13 +453,9 @@ const ALL_STEPS = [
         heading: '🍎 What gets installed on Mac',
         os: 'mac',
         bullets: [
-          '<strong>Homebrew</strong> — Package manager for installing developer tools',
+          '<strong>Homebrew</strong> — Package manager for installing developer tools (if not already installed)',
           '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
-          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal',
-          '<strong>Starter kit</strong> — A <code>.claude</code> configuration folder with best-practice rules, hooks, and settings',
-          '<strong>cc shortcut</strong> — Type <code>cc</code> to start Claude Code in auto-accept mode (no permission prompts)',
-          '<strong>ccr shortcut</strong> — Type <code>ccr</code> to resume your last Claude Code session',
-          '<strong>Terminal in Dock</strong> — Pins Terminal to your Dock for quick access'
+          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal'
         ]
       },
       {
@@ -465,16 +463,13 @@ const ALL_STEPS = [
         os: 'windows',
         bullets: [
           '<strong>Execution policy</strong> — Allows PowerShell to run developer scripts (current user only)',
-          '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
-          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal',
-          '<strong>Starter kit</strong> — A <code>.claude</code> configuration folder with best-practice rules, hooks, and settings',
-          '<strong>cc shortcut</strong> — Type <code>cc</code> to start Claude Code in auto-accept mode (no permission prompts)',
-          '<strong>ccr shortcut</strong> — Type <code>ccr</code> to resume your last Claude Code session'
+          '<strong>Node.js</strong> — JavaScript runtime required by Claude Code (via winget)',
+          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal'
         ]
       }
     ],
     command: null, hasCopyBtn: false, links: [],
-    tip: 'Every step checks first — if something is already installed, it is skipped. Safe to re-run.',
+    tip: 'Each step checks first — if something is already installed, it is skipped. Safe to re-run.',
     warn: null
   },
 
@@ -494,28 +489,28 @@ const ALL_STEPS = [
     ],
     osSpecific: null, subSections: null,
     command: 'claude --version',
-    hasCopyBtn: false, links: [],
-    tip: null,
+    hasCopyBtn: true, links: [],
+    tip: 'If the command is not found, close your terminal completely and open a new one — then try again.',
     warn: null
   },
 
   /* ── 13 ────────────────────────────────────────────────────── */
   {
     id: 13,
-    title: 'Set Tool access to Auto',
-    shortTitle: 'Tool access: Auto',
+    title: 'Configure Tool Permissions',
+    shortTitle: 'Tool permissions',
     stage: 'setup',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Configure Claude Code to automatically use tools without asking for permission on every single action.',
+    explanation: 'By default, Claude Code asks for permission before running each tool (reading files, running commands, writing code). You can allow tools to run automatically so you don\'t have to approve every action.',
     bullets: [
-      'Open Claude Code and run <code>/config</code> or open <strong>Settings</strong>',
-      'Find the <strong>Tool access</strong> or <strong>Permissions</strong> section',
-      'Set the value to <strong>Auto</strong>',
-      'This lets Claude run shell commands, read files, and write code for you'
+      'Start Claude Code by running <code>claude</code> in your terminal',
+      'When Claude asks to use a tool, you can type <strong>a</strong> to "always allow" that tool',
+      'Alternatively, start Claude Code with <code>claude --dangerously-skip-permissions</code> to auto-approve all tools',
+      'You can also type <code>/permissions</code> inside Claude Code to review and manage allowed tools'
     ],
     osSpecific: null, subSections: null, command: null, hasCopyBtn: false, links: [],
-    tip: null,
-    warn: 'Only enable Auto mode in your own development environment — it grants Claude permission to run shell commands on your machine.'
+    tip: 'Start by allowing tools one at a time with "a" (always allow) until you are comfortable, then consider using the skip-permissions flag.',
+    warn: 'The <code>--dangerously-skip-permissions</code> flag grants Claude full access to run shell commands on your machine. Only use it in your own development environment.'
   },
 
   /* ── 14 ────────────────────────────────────────────────────── */
@@ -524,7 +519,7 @@ const ALL_STEPS = [
     title: 'Connect Google Drive and GitHub',
     shortTitle: 'Connect integrations',
     stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
+    os: 'both', windowsOnly: false, required: false, optional: true,
     explanation: 'Link your accounts so Claude can read from your Drive and interact with your GitHub repositories.',
     bullets: [
       'In Claude Desktop, go to <strong>Settings → Integrations</strong>',
@@ -544,39 +539,47 @@ const ALL_STEPS = [
   /* ── 15 ────────────────────────────────────────────────────── */
   {
     id: 15,
-    title: 'Enable desktop-commander extension',
+    title: 'Enable desktop-commander MCP server',
     shortTitle: 'desktop-commander',
     stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'The desktop-commander extension lets Claude control your desktop, manage files, and run local commands.',
+    os: 'both', windowsOnly: false, required: false, optional: true,
+    explanation: 'desktop-commander is an <span data-tooltip="MCP (Model Context Protocol) servers extend Claude\'s capabilities by connecting it to external tools and services">MCP server</span> that gives Claude Desktop the ability to run terminal commands, manage files, and control your desktop. It connects Claude Desktop to your local system so it can execute commands on your behalf.',
     bullets: [
-      'Open Claude Desktop',
-      'Go to <strong>Extensions</strong> or the plugin marketplace',
-      'Search for and enable <strong>desktop-commander</strong>',
-      'Restart Claude Desktop if prompted'
+      'Follow the two steps below in order',
+      'You will need your terminal open and Claude Desktop installed'
     ],
-    osSpecific: {
-      mac: {
-        heading: 'Mac — Permissions',
+    osSpecific: null,
+    subSections: [
+      {
+        heading: '1. Install via terminal',
         bullets: [
-          'macOS will prompt for <strong>Accessibility permissions</strong>',
-          'Open <strong>System Settings → Privacy & Security → Accessibility</strong>',
-          'Find <strong>Claude Desktop</strong> and toggle it <strong>on</strong>',
-          'Re-launch Claude Desktop after granting access'
+          'Run: <code>npx @anthropic-ai/desktop-commander setup</code>',
+          'This installs and configures the MCP server automatically',
+          'If prompted to install a package, type <strong>y</strong> and press Enter'
         ]
       },
-      windows: {
-        heading: 'Windows — Permissions',
+      {
+        heading: '2. Restart Claude Desktop',
         bullets: [
-          'Windows may show a <span data-tooltip="UAC = User Account Control. A Windows security prompt that asks permission for elevated actions.">UAC prompt</span> — click <em>Yes</em>',
-          'If blocked by antivirus, add Claude to your exceptions list',
-          'Check <strong>Windows Defender → App & browser control</strong> if flagged',
-          'Restart Claude Desktop if the extension doesn\'t appear'
+          'Fully quit Claude Desktop (not just close the window)',
+          'On Mac: click <strong>Claude</strong> in the menu bar → <strong>Quit Claude</strong>',
+          'On Windows: right-click the Claude icon in the system tray → <strong>Quit</strong>',
+          'Re-open Claude Desktop'
+        ]
+      },
+      {
+        heading: '3. Verify it works',
+        bullets: [
+          'Open a new conversation in Claude Desktop',
+          'You should see a <strong>hammer icon 🔨</strong> or <strong>tools icon</strong> indicating MCP servers are connected',
+          'Try asking: <em>"List the files in my home directory"</em>',
+          'If Claude can list your files, desktop-commander is working'
         ]
       }
-    },
-    subSections: null, command: null, hasCopyBtn: false, links: [],
-    tip: 'desktop-commander unlocks file-system access and terminal control — making Claude a true coding co-pilot.',
+    ],
+    command: 'npx @anthropic-ai/desktop-commander setup',
+    hasCopyBtn: true, links: [],
+    tip: 'If the setup command doesn\'t work, you can also install manually: run <code>npm install -g @anthropic-ai/desktop-commander</code>, then open Claude Desktop → Settings → Developer → Edit Config, and add the server to your config file.',
     warn: null
   },
 
