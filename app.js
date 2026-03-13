@@ -423,53 +423,51 @@ const ALL_STEPS = [
     shortTitle: 'Install Claude Code',
     stage: 'setup',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Claude Code requires Node.js (v18+). The commands below install Node.js if needed, then install Claude Code globally.',
+    explanation: 'The recommended way to install Claude Code is with the native installer, which auto-updates automatically. Copy the command for your OS below.',
     bullets: [],
     showBothOS: false,
     osSpecific: {
       mac: {
-        heading: 'On Mac',
+        heading: 'On Mac (recommended — native install, auto-updates)',
         bullets: [
           'Copy the install command below',
           'Open <strong>Terminal</strong> — press <kbd>⌘ Space</kbd>, type <strong>Terminal</strong>, press <kbd>Enter</kbd>',
-          'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>',
-          'If you don\'t have Homebrew yet, the command installs it first'
+          'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>'
         ],
-        command: '( command -v brew >/dev/null 2>&1 || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" ) && { [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"; [ -x /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv)"; true; } && ( command -v node >/dev/null 2>&1 || brew install node ) && npm install -g @anthropic-ai/claude-code && echo "Done! Run: claude"'
+        command: 'curl -fsSL https://claude.ai/install.sh | bash'
       },
       windows: {
-        heading: 'On Windows',
+        heading: 'On Windows (recommended — native install, auto-updates)',
         bullets: [
           'Copy the install command below',
           'Open <strong>PowerShell</strong> — press <kbd>Win</kbd>, type <strong>PowerShell</strong>, press <kbd>Enter</kbd>',
           'Right-click to paste, then press <kbd>Enter</kbd>',
-          'If Node.js is not installed, the command installs it via <strong>winget</strong>'
+          '<strong>Requires <a href="https://git-scm.com/downloads/win" target="_blank">Git for Windows</a></strong> — install it first if you don\'t have it'
         ],
-        command: 'Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; if (!(Get-Command node -ErrorAction SilentlyContinue)) { winget install OpenJS.NodeJS.LTS -e --accept-source-agreements --accept-package-agreements }; npm install -g @anthropic-ai/claude-code; echo "Done! Run: claude"'
+        command: 'irm https://claude.ai/install.ps1 | iex'
       }
     },
     subSections: [
       {
-        heading: '🍎 What gets installed on Mac',
+        heading: '🍎 Alternative install methods (Mac)',
         os: 'mac',
         bullets: [
-          '<strong>Homebrew</strong> — Package manager for installing developer tools (if not already installed)',
-          '<strong>Node.js</strong> — JavaScript runtime required by Claude Code',
-          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal'
+          '<strong>Homebrew</strong> (does NOT auto-update): <code>brew install --cask claude-code</code> — run <code>brew upgrade claude-code</code> periodically to update',
+          '<strong>npm</strong> (fallback): <code>npm install -g @anthropic-ai/claude-code</code>'
         ]
       },
       {
-        heading: '🪟 What gets installed on Windows',
+        heading: '🪟 Alternative install methods (Windows)',
         os: 'windows',
         bullets: [
-          '<strong>Execution policy</strong> — Allows PowerShell to run developer scripts (current user only)',
-          '<strong>Node.js</strong> — JavaScript runtime required by Claude Code (via winget)',
-          '<strong>Claude Code</strong> — AI coding assistant that runs in your terminal'
+          '<strong>Windows CMD</strong> (native, auto-updates): <code>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</code>',
+          '<strong>WinGet</strong> (does NOT auto-update): <code>winget install Anthropic.ClaudeCode</code> — run <code>winget upgrade Anthropic.ClaudeCode</code> periodically to update',
+          '<strong>npm</strong> (fallback): <code>npm install -g @anthropic-ai/claude-code</code>'
         ]
       }
     ],
     command: null, hasCopyBtn: false, links: [],
-    tip: 'Each step checks first — if something is already installed, it is skipped. Safe to re-run.',
+    tip: 'The native installer is recommended because it auto-updates. Homebrew, WinGet, and npm installs require manual updates.',
     warn: null
   },
 
@@ -491,6 +489,28 @@ const ALL_STEPS = [
     command: 'claude --version',
     hasCopyBtn: true, links: [],
     tip: 'If the command is not found, close your terminal completely and open a new one — then try again.',
+    warn: null
+  },
+
+  /* ── 12b ───────────────────────────────────────────────────── */
+  {
+    id: 120,
+    title: 'Log in to Claude',
+    shortTitle: 'Log in',
+    stage: 'setup',
+    os: 'both', windowsOnly: false, required: false, optional: false,
+    explanation: 'After installing, you need to log in so Claude Code can connect to your account. You only need to do this once — your credentials are stored locally after the first login.',
+    bullets: [
+      'Run <code>claude</code> in your terminal',
+      'You will be prompted to log in through your browser',
+      'Sign in with your <strong>Claude Pro</strong>, <strong>Max</strong>, <strong>Teams</strong>, <strong>Enterprise</strong>, or <strong>Console</strong> account',
+      'Once authenticated, you\'re ready to use Claude Code',
+      'To switch accounts later, use the <code>/login</code> command inside Claude Code'
+    ],
+    osSpecific: null, subSections: null,
+    command: 'claude',
+    hasCopyBtn: true, links: [],
+    tip: 'A Claude Pro or Max plan is recommended for the best experience. Free-plan usage may be too limited for sustained coding sessions.',
     warn: null
   },
 
