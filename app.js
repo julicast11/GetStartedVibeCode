@@ -397,7 +397,6 @@ const ALL_STEPS = [
         bullets: [
           'Press <kbd>Cmd+Space</kbd> to open <span data-tooltip="macOS built-in search tool — press Cmd+Space to open it">Spotlight</span>',
           'Type <strong>Terminal</strong> and press <kbd>Enter</kbd>',
-          'For a better experience, consider <strong>iTerm2</strong> (iterm2.com)',
           'Verify curl: run <code>curl --version</code>'
         ]
       },
