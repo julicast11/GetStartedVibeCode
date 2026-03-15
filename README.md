@@ -22,8 +22,8 @@ No build step, no framework. Open `index.html` in a browser and it works.
 
 The left sidebar has three clickable stage tabs: **Pre-Setup**, **Setup**, and **Workflow**. Clicking a tab filters the step list to only show steps for that stage. Progress dots and the progress bar are scoped to the active stage.
 
-- **Pre-Setup** (steps 101–105) — a no-GitHub, no-hosting workflow for building a website with Claude using local files only
-- **Setup** (steps 1–16) — installing Git, Claude Code, creating a GitHub account, etc.
+- **Pre-Setup** (steps 101–106) — a no-GitHub, no-hosting workflow for building a website with Claude using local files only
+- **Setup** (steps 1–16) — downloading Claude Desktop, configuring settings, installing Claude Code (OS-specific paths for Mac and Windows), and connecting integrations
 - **Workflow** (steps 17–25) — the repeating edit-preview-publish cycle used during the workshop
 
 Navigation crosses stage boundaries automatically: Pre-Setup → Setup → Workflow. Pressing Next on the last step of a stage advances to the first step of the next stage, and pressing Back on the first step returns to the last step of the previous stage.

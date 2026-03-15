@@ -160,7 +160,7 @@ const ALL_STEPS = [
     os: 'both', windowsOnly: false, required: false, optional: false,
     explanation: 'Head to Anthropic\'s official website and download the Claude Desktop application for your operating system.',
     bullets: [
-      'Visit <strong>claude.ai/download</strong> in your browser',
+      'Go to <strong><a href="https://claude.ai/download" target="_blank">claude.ai/download</a></strong> in your browser',
       'Click the download button for your operating system',
       'Save the installer file to your Downloads folder'
     ],
@@ -184,9 +184,9 @@ const ALL_STEPS = [
       mac: {
         heading: 'On Mac',
         bullets: [
-          'Open the downloaded <code>.dmg</code> file from Downloads',
+          'Open the downloaded <code>.dmg</code> file from your Downloads folder',
           'Drag <strong>Claude</strong> into the <strong>Applications</strong> folder',
-          'Launch Claude via <span data-tooltip="Press Cmd+Space to open Spotlight, then type the app name">Spotlight</span> or from Applications',
+          'Open Claude — press <kbd>Cmd+Space</kbd>, type <strong>Claude</strong>, and press <kbd>Enter</kbd>',
           'Sign in with your Anthropic account when prompted'
         ]
       },
@@ -252,20 +252,39 @@ const ALL_STEPS = [
   /* ── 4 ─────────────────────────────────────────────────────── */
   {
     id: 4,
-    title: 'Turn off Auto-reload and Extra Usage',
-    shortTitle: 'Auto-reload & Extra Usage',
+    title: 'Turn off Extra Usage',
+    shortTitle: 'Turn off Extra Usage',
     stage: 'setup',
     os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Disable Auto-reload and Extra Usage to prevent unexpected charges and unwanted app behaviour.',
-    bullets: [
-      'Click the <strong>gear icon ⚙</strong> or open the app <strong>Settings</strong>',
-      'Find <strong>Auto-reload</strong> and switch it <strong>off</strong>',
-      'Find <strong>Extra Usage</strong> and switch it <strong>off</strong>',
-      'Save or close the settings panel'
+    explanation: 'Disable Extra Usage to prevent unexpected overage charges beyond your plan\'s included usage.',
+    bullets: [],
+    osSpecific: null,
+    subSections: [
+      {
+        heading: '1. Open Settings',
+        bullets: [
+          'In Claude Desktop, click your <strong>profile icon</strong> (bottom-left corner)',
+          'Select <strong>Settings</strong> from the menu'
+        ]
+      },
+      {
+        heading: '2. Go to Usage',
+        bullets: [
+          'In the Settings sidebar, click <strong>Usage</strong>'
+        ]
+      },
+      {
+        heading: '3. Turn off Extra Usage',
+        bullets: [
+          'Find <strong>"Extra Usage"</strong> (also called "Allow extra usage")',
+          'Toggle it <strong>off</strong> — this prevents overage charges beyond your plan\'s included usage',
+          'Close the Settings panel when done'
+        ]
+      }
     ],
-    osSpecific: null, subSections: null, command: null, hasCopyBtn: false, links: [],
+    command: null, hasCopyBtn: false, links: [],
     tip: null,
-    warn: 'Leaving Extra Usage on may trigger additional billing if your usage spikes.'
+    warn: 'Leaving Extra Usage on may trigger additional billing if your usage spikes beyond your plan limits.'
   },
 
   /* ── 5 ─────────────────────────────────────────────────────── */
@@ -277,7 +296,7 @@ const ALL_STEPS = [
     os: 'both', windowsOnly: false, required: false, optional: false,
     explanation: 'Opt out of contributing your conversations to model training to keep your code and data private.',
     bullets: [
-      'Go to <strong>Settings → Privacy</strong>',
+      'Still in Settings, click <strong>Privacy</strong> in the sidebar',
       'Find <em>"Improve Claude for everyone"</em> or <em>"Share usage data"</em>',
       'Toggle it <strong>off</strong>',
       'Your prompts and code won\'t be used to train future models'
@@ -296,220 +315,150 @@ const ALL_STEPS = [
     os: 'both', windowsOnly: false, required: false, optional: false,
     explanation: 'Enable Memory so Claude can remember your preferences, stack, and context across separate conversations.',
     bullets: [
-      'Go to <strong>Settings → Memory</strong>',
-      'Toggle <strong>Memory on</strong>',
-      'Optionally add a note about your preferred language or tech stack',
+      'Still in Settings, click <strong>Capabilities</strong> in the sidebar',
+      'Click on <strong>Memory</strong> to expand it',
+      'Toggle on <strong>"Search and reference chat"</strong>',
+      'Toggle on <strong>"Generate from chat history"</strong>',
       'Claude will use this context to give more relevant answers over time'
     ],
     osSpecific: null, subSections: null, command: null, hasCopyBtn: false, links: [],
-    tip: 'Try adding: "I work in TypeScript with Next.js and deploy to Railway."',
+    tip: null,
     warn: null
   },
 
   /* ── 7 ─────────────────────────────────────────────────────── */
   {
-    id: 7,
-    title: 'Enable Run on startup and Quick access',
-    shortTitle: 'Startup & Quick access',
-    stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Keep Claude instantly available by running it at startup and setting up a global keyboard shortcut.',
-    bullets: [
-      'Open <strong>Settings → General</strong>',
-      'Enable <strong>"Run on startup"</strong> (or "Launch at login" on Mac)',
-      'Configure the <strong>Quick access</strong> shortcut'
-    ],
-    osSpecific: {
-      mac: {
-        heading: 'On Mac',
-        bullets: [
-          'Enable <strong>"Launch at login"</strong> in Settings → General',
-          'Claude will appear in your <strong>menu bar</strong> (top-right)',
-          'Quick Access shortcut: typically <kbd>Cmd+Shift+Space</kbd>',
-          'Open Claude instantly from any app without switching windows'
-        ]
-      },
-      windows: {
-        heading: 'On Windows',
-        bullets: [
-          'Enable <strong>"Run on startup"</strong> in Settings → General',
-          'Claude will appear in the <span data-tooltip="The small icons area at the bottom-right of your taskbar">system tray</span>',
-          'Right-click the tray icon to configure the Quick Access shortcut',
-          'Use the shortcut to open Claude from any app instantly'
-        ]
-      }
-    },
-    subSections: null, command: null, hasCopyBtn: false, links: [],
-    tip: null, warn: null
-  },
-
-  /* ── 8 ─────────────────────────────────────────────────────── */
-  {
     id: 8,
-    title: 'Open the Code tab',
-    shortTitle: 'Open Code tab',
-    stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Claude Desktop includes a dedicated Code tab optimised for software development — better syntax awareness and file context.',
-    bullets: [
-      'Look for the <strong>Code</strong> tab in the left sidebar or top navigation',
-      'Click it to switch to the developer-focused interface',
-      'Explore the code-specific options and settings here',
-      'This is where you\'ll spend most of your development time with Claude'
-    ],
-    osSpecific: null, subSections: null, command: null, hasCopyBtn: false, links: [],
-    tip: 'The Code tab provides improved syntax highlighting and better file context handling.',
-    warn: null
-  },
-
-  /* ── 9 ─────────────────────────────────────────────────────── */
-  {
-    id: 9,
-    title: 'Install Git',
-    shortTitle: 'Install Git',
+    title: 'Windows Setup Guide',
+    shortTitle: 'Windows Setup',
     stage: 'setup',
     os: 'windows', windowsOnly: true, required: false, optional: false,
-    explanation: 'Git is required for version control on Windows. macOS users can skip this — Git comes pre-installed with Xcode Command Line Tools.',
-    bullets: [
-      'Visit <strong>git-scm.com/download/win</strong>',
-      'Download the latest <strong>Git for Windows</strong> installer',
-      'Run the installer — the default settings are recommended',
-      'Open <strong>Git Bash</strong> or PowerShell and run <code>git --version</code> to confirm'
-    ],
-    osSpecific: null, subSections: null, command: null, hasCopyBtn: false,
-    links: [{ text: 'git-scm.com/download/win ↗', url: 'https://git-scm.com/download/win' }],
-    tip: null,
-    warn: 'If you see this on Mac, check that you selected the correct OS above.'
-  },
-
-  /* ── 10 ────────────────────────────────────────────────────── */
-  {
-    id: 10,
-    title: 'Set up the terminal',
-    shortTitle: 'Set up terminal',
-    stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'Open and configure your terminal — you\'ll need it for the install command in the next step.',
+    explanation: 'Getting Claude Code running on Windows takes about 10 minutes. You\'ll install three things: Git, Node.js, and Claude Code. Follow each step in order.',
     bullets: [],
-    osSpecific: {
-      mac: {
-        heading: 'On Mac',
+    osSpecific: null,
+    subSections: [
+      {
+        heading: '1. Install Git',
         bullets: [
-          'Press <kbd>Cmd+Space</kbd> to open <span data-tooltip="macOS built-in search tool — press Cmd+Space to open it">Spotlight</span>',
-          'Type <strong>Terminal</strong> and press <kbd>Enter</kbd>',
-          'Verify curl: run <code>curl --version</code>'
+          'Go to <strong><a href="https://git-scm.com/download/win" target="_blank">git-scm.com/download/win</a></strong>',
+          'Click <strong>"Git for Windows x64 Setup"</strong> to download',
+          'Open the downloaded file and click through the installer — all default settings are fine',
+          'On the <strong>"Adjusting your PATH environment"</strong> screen, make sure <strong>"Git from the command line and also from 3rd-party software"</strong> is selected',
+          'Keep clicking <strong>Next → Install → Finish</strong>'
         ]
       },
-      windows: {
-        heading: 'On Windows',
+      {
+        heading: '2. Install Node.js',
         bullets: [
-          'Press the <strong>Windows key</strong> → search <strong>Windows Terminal</strong> or <strong>PowerShell</strong>',
-          'Right-click → <em>"Run as administrator"</em> if you hit permission errors',
-          'Verify <span data-tooltip="curl is a command-line tool for transferring data via URLs">curl</span>: run <code>curl --version</code>',
-          '<strong>Git Bash</strong> also works if you installed Git in the previous step'
+          'Go to <strong><a href="https://nodejs.org" target="_blank">nodejs.org</a></strong>',
+          'Click <strong>"Windows Installer (.msi)"</strong> under the LTS version',
+          'Open the downloaded file and click through the installer — all default settings are fine',
+          'Click <strong>Finish</strong> when done'
+        ]
+      },
+      {
+        heading: '3. Verify Everything Installed',
+        bullets: [
+          '<strong>Close any open PowerShell or Terminal windows</strong> — this is important, old windows won\'t recognize the new installs',
+          'Open a <strong>new PowerShell</strong> (search "PowerShell" in the Start menu)',
+          'Type these one at a time and hit Enter: <code>git --version</code> and <code>node --version</code>',
+          'Both should show version numbers. If they do, you\'re ready!'
+        ]
+      },
+      {
+        heading: '4. Install Claude Code',
+        bullets: [
+          'In that same PowerShell window, run: <code>npm install -g @anthropic-ai/claude-code</code>',
+          'Wait for it to finish, then run: <code>claude</code>',
+          'It will ask you to log in with your Anthropic account — follow the prompts and you\'re in!'
         ]
       }
-    },
-    subSections: null, command: null, hasCopyBtn: false, links: [],
-    tip: 'Keep your terminal open — you\'ll use it in the next step.',
+    ],
+    command: null, hasCopyBtn: false,
+    links: [
+      { text: 'git-scm.com/download/win ↗', url: 'https://git-scm.com/download/win' },
+      { text: 'nodejs.org ↗', url: 'https://nodejs.org' }
+    ],
+    tip: null,
     warn: null
   },
 
-  /* ── 11 ────────────────────────────────────────────────────── */
+  /* ── 8 ── Mac: Open Terminal ────────────────────────────────── */
+  {
+    id: 10,
+    title: 'Open Terminal',
+    shortTitle: 'Open Terminal',
+    stage: 'setup',
+    os: 'mac', windowsOnly: false, required: false, optional: false,
+    explanation: 'Open the Terminal app — you\'ll use it to install and run Claude Code.',
+    bullets: [
+      'Press <kbd>Cmd+Space</kbd>, type <strong>Terminal</strong>, and press <kbd>Enter</kbd>',
+      'A black or white window with a blinking cursor will appear — this is your terminal',
+      'Keep it open — you\'ll paste a command here in the next step'
+    ],
+    osSpecific: null, subSections: null, command: null, hasCopyBtn: false, links: [],
+    tip: null,
+    warn: null
+  },
+
+  /* ── 9 ── Mac: Install Claude Code ──────────────────────────── */
   {
     id: 11,
     title: 'Install Claude Code',
     shortTitle: 'Install Claude Code',
     stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'The recommended way to install Claude Code is with the native installer, which auto-updates automatically. Copy the command for your OS below.',
-    bullets: [],
-    showBothOS: false,
-    osSpecific: {
-      mac: {
-        heading: 'On Mac (recommended — native install, auto-updates)',
-        bullets: [
-          'Copy the install command below',
-          'Open <strong>Terminal</strong> — press <kbd>⌘ Space</kbd>, type <strong>Terminal</strong>, press <kbd>Enter</kbd>',
-          'Paste with <kbd>⌘ V</kbd> and press <kbd>Enter</kbd>'
-        ],
-        command: 'curl -fsSL https://claude.ai/install.sh | bash'
-      },
-      windows: {
-        heading: 'On Windows (recommended — native install, auto-updates)',
-        bullets: [
-          'Copy the install command below',
-          'Open <strong>PowerShell</strong> — press <kbd>Win</kbd>, type <strong>PowerShell</strong>, press <kbd>Enter</kbd>',
-          'Right-click to paste, then press <kbd>Enter</kbd>',
-          '<strong>Requires <a href="https://git-scm.com/downloads/win" target="_blank">Git for Windows</a></strong> — install it first if you don\'t have it'
-        ],
-        command: 'irm https://claude.ai/install.ps1 | iex'
-      }
-    },
-    subSections: [
-      {
-        heading: '🍎 Alternative install methods (Mac)',
-        os: 'mac',
-        bullets: [
-          '<strong>Homebrew</strong> (does NOT auto-update): <code>brew install --cask claude-code</code> — run <code>brew upgrade claude-code</code> periodically to update',
-          '<strong>npm</strong> (fallback): <code>npm install -g @anthropic-ai/claude-code</code>'
-        ]
-      },
-      {
-        heading: '🪟 Alternative install methods (Windows)',
-        os: 'windows',
-        bullets: [
-          '<strong>Windows CMD</strong> (native, auto-updates): <code>curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd</code>',
-          '<strong>WinGet</strong> (does NOT auto-update): <code>winget install Anthropic.ClaudeCode</code> — run <code>winget upgrade Anthropic.ClaudeCode</code> periodically to update',
-          '<strong>npm</strong> (fallback): <code>npm install -g @anthropic-ai/claude-code</code>'
-        ]
-      }
+    os: 'mac', windowsOnly: false, required: false, optional: false,
+    explanation: 'Install Claude Code using the official native installer. This is the recommended method — it auto-updates automatically.',
+    bullets: [
+      'In your Terminal, paste the command below and press <kbd>Enter</kbd>',
+      'The installer handles everything — no dependencies needed'
     ],
-    command: null, hasCopyBtn: false, links: [],
-    tip: 'The native installer is recommended because it auto-updates. Homebrew, WinGet, and npm installs require manual updates.',
+    osSpecific: null, subSections: null,
+    command: 'curl -fsSL https://claude.ai/install.sh | bash',
+    hasCopyBtn: true, links: [],
+    tip: null,
     warn: null
   },
 
-  /* ── 12 ────────────────────────────────────────────────────── */
+  /* ── 10 ── Mac: Verify installation ─────────────────────────── */
   {
     id: 12,
     title: 'Verify installation',
     shortTitle: 'Verify installation',
     stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
+    os: 'mac', windowsOnly: false, required: false, optional: false,
     explanation: 'Confirm Claude Code was installed correctly by checking the version in a fresh terminal window.',
     bullets: [
-      'Open a <strong>new terminal window</strong> (this ensures your <span data-tooltip="PATH is a list of directories your system searches when you run a command">PATH</span> is updated)',
+      'Open a <strong>new Terminal window</strong> (<kbd>Cmd+N</kbd>) — this ensures your system recognizes the new install',
       'Run <code>claude --version</code>',
       'You should see a version number, e.g. <code>claude 1.x.x</code>',
-      'If not found, restart your terminal and try again'
+      'If not found, close Terminal completely and reopen it, then try again'
     ],
     osSpecific: null, subSections: null,
     command: 'claude --version',
     hasCopyBtn: true, links: [],
-    tip: 'If the command is not found, close your terminal completely and open a new one — then try again.',
+    tip: null,
     warn: null
   },
 
-  /* ── 12b ───────────────────────────────────────────────────── */
+  /* ── 11 ────────────────────────────────────────────────────── */
   {
-    id: 120,
+    id: 16,
     title: 'Log in to Claude',
     shortTitle: 'Log in',
     stage: 'setup',
-    os: 'both', windowsOnly: false, required: false, optional: false,
-    explanation: 'After installing, you need to log in so Claude Code can connect to your account. You only need to do this once — your credentials are stored locally after the first login.',
+    os: 'both', windowsOnly: false, required: true, optional: false,
+    explanation: 'After installing, you need to log in with your Anthropic account so Claude Code can connect to your plan.',
     bullets: [
       'Run <code>claude</code> in your terminal',
-      'You will be prompted to log in through your browser',
-      'Sign in with your <strong>Claude Pro</strong>, <strong>Max</strong>, <strong>Teams</strong>, <strong>Enterprise</strong>, or <strong>Console</strong> account',
-      'Once authenticated, you\'re ready to use Claude Code',
-      'To switch accounts later, use the <code>/login</code> command inside Claude Code'
+      'A browser window will open — sign in with the same Anthropic account you used in Claude Desktop',
+      'Once logged in, you\'ll be taken back to the terminal and Claude Code is ready to use',
+      'You only need to do this once — your login is saved for future sessions'
     ],
     osSpecific: null, subSections: null,
     command: 'claude',
     hasCopyBtn: true, links: [],
-    tip: 'A Claude Pro or Max plan is recommended for the best experience. Free-plan usage may be too limited for sustained coding sessions.',
+    tip: 'If you have multiple accounts, you can switch between them at any time by typing <code>/login</code> inside a Claude Code session.',
     warn: null
   },
 
@@ -542,8 +491,8 @@ const ALL_STEPS = [
     explanation: 'Link your accounts so Claude can read from your Drive and interact with your GitHub repositories.',
     bullets: [
       'In Claude Desktop, go to <strong>Settings → Integrations</strong>',
-      'Click <strong>Connect Google Drive</strong> and complete the <span data-tooltip="OAuth lets you authorise an app without sharing your password">OAuth</span> flow',
-      'Click <strong>Connect GitHub</strong> and authorise Claude',
+      'Click <strong>Connect Google Drive</strong> and follow the sign-in prompts',
+      'Click <strong>Connect GitHub</strong> and follow the sign-in prompts',
       'Choose which repos and Drive folders to share with Claude'
     ],
     osSpecific: null, subSections: null, command: null, hasCopyBtn: false,
@@ -564,7 +513,7 @@ const ALL_STEPS = [
     os: 'both', windowsOnly: false, required: false, optional: true,
     explanation: 'desktop-commander is an <span data-tooltip="MCP (Model Context Protocol) servers extend Claude\'s capabilities by connecting it to external tools and services">MCP server</span> that gives Claude Desktop the ability to run terminal commands, manage files, and control your desktop. It connects Claude Desktop to your local system so it can execute commands on your behalf.',
     bullets: [
-      'Follow the two steps below in order',
+      'Follow the three steps below in order',
       'You will need your terminal open and Claude Desktop installed'
     ],
     osSpecific: null,
@@ -572,18 +521,18 @@ const ALL_STEPS = [
       {
         heading: '1. Install via terminal',
         bullets: [
-          'Run: <code>npx @anthropic-ai/desktop-commander setup</code>',
+          'Run: <code>npx @wonderwhy-er/desktop-commander@latest setup</code>',
           'This installs and configures the MCP server automatically',
           'If prompted to install a package, type <strong>y</strong> and press Enter'
         ]
       },
       {
-        heading: '2. Restart Claude Desktop',
+        heading: '2. Claude Desktop restarts automatically',
         bullets: [
-          'Fully quit Claude Desktop (not just close the window)',
-          'On Mac: click <strong>Claude</strong> in the menu bar → <strong>Quit Claude</strong>',
-          'On Windows: right-click the Claude icon in the system tray → <strong>Quit</strong>',
-          'Re-open Claude Desktop'
+          'The installer will restart Claude Desktop for you automatically',
+          'If it doesn\'t restart on its own, fully quit Claude Desktop and reopen it',
+          'On Mac: click <strong>Claude</strong> in the menu bar → <strong>Quit Claude</strong>, then reopen',
+          'On Windows: right-click the Claude icon in the system tray → <strong>Quit</strong>, then reopen'
         ]
       },
       {
@@ -596,15 +545,15 @@ const ALL_STEPS = [
         ]
       }
     ],
-    command: 'npx @anthropic-ai/desktop-commander setup',
+    command: 'npx @wonderwhy-er/desktop-commander@latest setup',
     hasCopyBtn: true, links: [],
-    tip: 'If the setup command doesn\'t work, you can also install manually: run <code>npm install -g @anthropic-ai/desktop-commander</code>, then open Claude Desktop → Settings → Developer → Edit Config, and add the server to your config file.',
+    tip: 'If the setup command doesn\'t work, you can also install manually: run <code>npm install -g @wonderwhy-er/desktop-commander</code>, then open Claude Desktop → Settings → Developer → Edit Config, and add the server to your config file.',
     warn: null
   },
 
   /* ── 16 ────────────────────────────────────────────────────── */
   {
-    id: 16,
+    id: 160,
     title: 'Create a GitHub repository',
     shortTitle: 'Create GitHub repo',
     stage: 'setup',
